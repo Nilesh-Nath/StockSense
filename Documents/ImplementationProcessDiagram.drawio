@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.11">
+  <diagram name="Page-1" id="ugMxgBbddF1cHXZEuJHc">
+    <mxGraphModel dx="913" dy="495" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DAkChOMouGQohSM_s3TC-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="255" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="430" width="290" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-3" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="190" width="240" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-4" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="170" width="260" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-5" value="Frontend" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="640" y="170" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-7" value="Backend" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="190" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-8" value="Machine Learning module" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="440" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-9" value="Datasource" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="255" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-10" value="FastAPI server" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="305" y="230" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DAkChOMouGQohSM_s3TC-11" target="DAkChOMouGQohSM_s3TC-17">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="240" y="300" />
+              <mxPoint x="240" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="DAkChOMouGQohSM_s3TC-11" target="DAkChOMouGQohSM_s3TC-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-11" value="Data Retrieval Module" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="305" y="280" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DAkChOMouGQohSM_s3TC-12" target="DAkChOMouGQohSM_s3TC-24">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="365" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-12" value="Data Preprocessing Module" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="305" y="340" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-16" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="DAkChOMouGQohSM_s3TC-10" target="DAkChOMouGQohSM_s3TC-11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="110" y="310" as="sourcePoint" />
+            <mxPoint x="160" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-17" value="Stock Data CSVs" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="285" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DAkChOMouGQohSM_s3TC-21" target="DAkChOMouGQohSM_s3TC-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-21" value="Search component" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="215" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-22" value="Visualization Component" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DAkChOMouGQohSM_s3TC-24" target="DAkChOMouGQohSM_s3TC-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DAkChOMouGQohSM_s3TC-24" target="DAkChOMouGQohSM_s3TC-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-24" value="LSTM Model" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="305" y="480" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-25" value="Model training module" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="530" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DAkChOMouGQohSM_s3TC-26" target="DAkChOMouGQohSM_s3TC-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-26" value="Prediction Module" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="530" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DAkChOMouGQohSM_s3TC-27" target="DAkChOMouGQohSM_s3TC-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DAkChOMouGQohSM_s3TC-27" value="Error metrics calculator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="585" width="120" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
