@@ -35,18 +35,3 @@ def get_stock_data(ticker):
             df.to_csv("stock_data_csv/" + csv)
         
     return df
-
-def plot(actual, train, test):
-    plt.plot(actual, label="Actual")
-    plt.plot(train, label="Train prediction")
-    test = [i for i in test]
-    # connect train and test lines
-    test.insert(0, train[-1])
-    # x values for test prediction plot
-    plt.plot([x for x in range(len(train)-1, len(train) + len(test)-1)], test, label="Test prediction")
-    plt.xlabel("Days")
-    plt.ylabel("Price")
-    plt.title("Stock Prediction")
-    plt.legend()
-    plt.grid()
-    plt.show()

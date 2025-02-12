@@ -20,9 +20,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# Initialize model and scaler globally
-model = LSTM(input_size=1, hidden_size=50, output_size=1, learning_rate=0.001)
 scaler = MinMaxScaler(feature_range=(-1, 1))
 
 class StockPredictionRequest(BaseModel):
@@ -35,9 +32,15 @@ class StockPredictionResponse(BaseModel):
     metrics: dict
 
 @app.post("/predict", response_model=StockPredictionResponse)
-async def predict(request: StockPredictionRequest):
+def predict(request: StockPredictionRequest):
     try:
+        # Initialize model 
+        model = LSTM(input_size=1, hidden_size=30, output_size=1, learning_rate=0.001)
         df = get_stock_data(request.ticker)
+
+        if(len(df)>1000):
+            df = df.iloc[-1000::1,:]
+
         prices = df['close'].values.reshape(-1, 1)
         
         # Normalize
@@ -56,13 +59,14 @@ async def predict(request: StockPredictionRequest):
         X_test, y_test = X[split:], y[split:]
         
         # Train model
-        model.train(X_train, y_train, epochs=7)
+        model.train(X_train, y_train, epochs=30)
         
         # Test
         predictions = []
         for seq in X_test:
             y_pred, _ = model.forward(seq)
             predictions.append(y_pred[0][0])
+            
         
         # Inverse transform
         predictions = scaler.inverse_transform(np.array(predictions).reshape(-1, 1))
