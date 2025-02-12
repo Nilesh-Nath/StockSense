@@ -35,7 +35,7 @@ class StockPredictionResponse(BaseModel):
 def predict(request: StockPredictionRequest):
     try:
         # Initialize model 
-        model = LSTM(input_size=1, hidden_size=30, output_size=1, learning_rate=0.001)
+        model = LSTM(input_size=1, hidden_size=30, output_size=1, learning_rate=0.01)
         df = get_stock_data(request.ticker)
 
         if(len(df)>1000):
@@ -59,7 +59,7 @@ def predict(request: StockPredictionRequest):
         X_test, y_test = X[split:], y[split:]
         
         # Train model
-        model.train(X_train, y_train, epochs=30)
+        model.train(X_train, y_train, epochs=20)
         
         # Test
         predictions = []
