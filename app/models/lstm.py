@@ -1,18 +1,21 @@
 from autograd import numpy as np
 from autograd import grad
 import numpy as N
-import autograd.numpy.random as random
+import numpy.random as random
 
 
 
 class LSTM:
-    def __init__(self, input_size=1, hidden_size=50, output_size=1, learning_rate=0.001, momentum=0.1):
+    def __init__(self, input_size=1, hidden_size=50, output_size=1, learning_rate=0.001, momentum=0.1,beta=0.9):
         # Parameters
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_size = output_size
         self.lr = learning_rate
         self.momentum=momentum
+        self.beta= beta
+        self.max_grad_norm = 5.0
+        
         self.m = {}  # First moment estimates
         self.v = {}  # Second moment estimates
         self.t = 0
@@ -114,6 +117,7 @@ class LSTM:
             loss = np.mean((y_pred - y_true)**2) 
             # print(loss)
             return loss
+    
     def train(self, X, y, epochs):
         # previous_error=-1
         
@@ -137,11 +141,14 @@ class LSTM:
                 # Compute gradients using autograd
                 gradients = grad_loss(self.params, x_seq, y_true)
                 
-                # Update parameters
+                
+                                # Update parameters
                 for param_name in self.params:
-                    self.velocity[param_name] = momentum* self.velocity[param_name]- self.lr * N.array(gradients[param_name])
+                    gradients[param_name] = N.clip(gradients[param_name], -self.max_grad_norm, self.max_grad_norm)
+
+                    self.velocity[param_name] = self.beta* self.velocity[param_name]+ (1-self.beta)* N.array(gradients[param_name])**2
                     # print(gradients)
-                    self.params[param_name] += self.velocity[param_name] 
+                    self.params[param_name] -= (self.lr/(1e-8+ N.sqrt(self.velocity[param_name]))) * gradients[param_name]
             # total_loss/=len(X)
             print(f"Epoch {epoch+1}/{epochs}, Loss: {total_loss:.4f}")
             
