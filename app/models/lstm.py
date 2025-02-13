@@ -3,10 +3,8 @@ from autograd import grad
 import numpy as N
 import numpy.random as random
 
-
-
 class LSTM:
-    def __init__(self, input_size=1, hidden_size=50, output_size=1, learning_rate=0.001, momentum=0.1,beta=0.9):
+    def __init__(self, input_size=1, hidden_size=50, output_size=1, learning_rate=0.001, momentum=0.4,beta=0.4):
         # Parameters
         self.input_size = input_size
         self.hidden_size = hidden_size
@@ -14,7 +12,7 @@ class LSTM:
         self.lr = learning_rate
         self.momentum=momentum
         self.beta= beta
-        self.max_grad_norm = 5.0
+        self.max_grad_norm = 10.0
         
         self.m = {}  # First moment estimates
         self.v = {}  # Second moment estimates
@@ -119,12 +117,11 @@ class LSTM:
             return loss
     
     def train(self, X, y, epochs):
-        # previous_error=-1
         
         momentum = 0
         # Create gradient function using autograd
         grad_loss = grad(self.loss_function, argnum=0)
-        BATCHSIZE= 64
+        BATCHSIZE= 15
         gradients=0
         for epoch in range(epochs):
             total_loss = 0
@@ -140,9 +137,7 @@ class LSTM:
                 
                 # Compute gradients using autograd
                 gradients = grad_loss(self.params, x_seq, y_true)
-                
-                
-                                # Update parameters
+                # Update parameters
                 for param_name in self.params:
                     gradients[param_name] = N.clip(gradients[param_name], -self.max_grad_norm, self.max_grad_norm)
 

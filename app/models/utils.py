@@ -1,7 +1,6 @@
 import numpy as np
 
 def mape(actual, prediction): 
-    # mean absolute percentage error (MAPE)
     return np.mean(np.abs((actual - prediction) / actual)) * 100
 
 def mse(actual, prediction):

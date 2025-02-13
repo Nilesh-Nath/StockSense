@@ -7,10 +7,9 @@ import {
   Box, 
   Typography,
   Container,
-  CircularProgress,
-  Backdrop
 } from '@mui/material';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import LoadingAnimation from './Loading'; 
 
 // eslint-disable-next-line react/prop-types
 function StockForm({ selectedTicker }) {
@@ -21,23 +20,24 @@ function StockForm({ selectedTicker }) {
 
   useEffect(() => {
     if (selectedTicker) {
-      setTicker(selectedTicker); // Update form value
-      fetchPrediction(selectedTicker); // Fetch prediction for the selected ticker
+      setTicker(selectedTicker);
+      fetchPrediction(selectedTicker);
     }
   }, [selectedTicker]);
 
   const fetchPrediction = async (ticker) => {
+    setResult(null);
     setLoading(true);
     setError('');
+    
     try {
       const response = await axios.post('http://localhost:8000/predict', { ticker });
-      console.log('Prediction Result:', response.data); // Debug log
       setResult(response.data);
     } catch (error) {
-      console.error('Error fetching prediction:', error); // Debug log
       setError(error.response?.data?.detail || 'Failed to fetch prediction');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleSubmit = async (e) => {
@@ -45,7 +45,7 @@ function StockForm({ selectedTicker }) {
     fetchPrediction(ticker);
   };
 
-  const chartData = result?.predictions.map((pred, index) => ({
+  const chartData = result?.predictions?.map((pred, index) => ({
     name: `Day ${index + 1}`,
     Predicted: Number(pred.toFixed(2)),
     Actual: Number(result.actual[index].toFixed(2))
@@ -70,32 +70,34 @@ function StockForm({ selectedTicker }) {
               disabled={loading}
               sx={{ px: 4 }}
             >
-              {loading ? <CircularProgress size={24} color="inherit" /> : 'Predict'}
+              Predict
             </Button>
           </Box>
         </form>
 
+        {/* Error Message */}
         {error && (
           <Typography color="error" sx={{ mb: 2 }}>
             {error}
           </Typography>
         )}
 
-        {result && (
+        {/* Loading Animation */}
+        {loading && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <LoadingAnimation />
+          </Box>
+        )}
+
+        {/* Show results only when loading is false and result exists */}
+        {!loading && result && (
           <Box sx={{ mt: 4 }}>
             <Typography variant="h5" gutterBottom>
               Results for {result.ticker}
             </Typography>
 
             {/* Graph */}
-            <Box sx={{ height: 400, mt: 4, mb: 4, position: 'relative' }}>
-              <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={loading}
-              >
-                <CircularProgress color="inherit" />
-              </Backdrop>
-
+            <Box sx={{ height: 400, mt: 4, mb: 4 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" />
