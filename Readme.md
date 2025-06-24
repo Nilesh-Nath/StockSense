@@ -80,7 +80,7 @@ npm start
 
 2. SectorWise Prediction
 
-![Sectorwise Prediction](<Sector wise.png>)
+![Sectorwise Prediction](Sector%20wise.png)
 
 3. CompanyWise Prediction
 
@@ -92,4 +92,4 @@ npm start
 
 5. User Profile
 
-![User Profile](<User Profile.png>)
+![User Profile](User%20Profile.png)
