@@ -1,108 +1,148 @@
-import { 
-    Paper, 
-    Container,
-    Typography,
-    Skeleton
-  } from '@mui/material';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import Box from '@mui/material/Box';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import { FixedSizeList } from 'react-window';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  Paper,
+  Typography,
+  Skeleton,
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemText,
+  Box,
+  Chip,
+} from "@mui/material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import BusinessIcon from "@mui/icons-material/Business";
 
 // eslint-disable-next-line react/prop-types
-function Sidebar({ onTickerSelect }) {
-    const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState([]);
-    const [selectedIndex, setSelectedIndex] = useState(null);
-  
-    const handleListItemClick = (index) => {
-      setSelectedIndex(index);
-      onTickerSelect(result[index]); // Set the ticker value in the form
-    };
-  
-    useEffect(() => {
-      getTicker();
-    }, []);
-  
-    async function getTicker() {
-        setLoading(true);
-        try {
-          const response = await axios.get('http://localhost:8000/get_available_tickers');
-          console.log('Tickers:', response.data); // Debug log
-          setResult(response.data);
-        } catch (error) {
-          console.error('Error fetching tickers:', error); // Debug log
-        } finally {
-          setLoading(false);
+function Sidebar({ onTickerSelect, onSectorSelect }) {
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState({});
+  const [openCategories, setOpenCategories] = useState({});
+  const [selectedTicker, setSelectedTicker] = useState("");
+  const [selectedSector, setSelectedSector] = useState("");
+
+  useEffect(() => {
+    getTickers();
+  }, []);
+
+  async function getTickers() {
+    setLoading(true);
+    try {
+      const response = await axios.get("http://localhost:8000/get_available_tickers");
+      
+      // Group tickers by category/sector
+      const grouped = response.data.reduce((acc, { ticker, sector }) => {
+        if (!acc[sector]) {
+          acc[sector] = [];
         }
-      }
-  
-    function renderRow({ index, style }) {
-      if (result.length === 0) {
-        return <div style={style}>No data Available</div>;
-      }
-  
-      return (
-        <ListItem component="div" disablePadding style={style} key={index}>
-          <ListItemButton
-            selected={selectedIndex === index}
-            onClick={() => handleListItemClick(index)}
-            sx={{
-              '&:hover': {
-                backgroundColor: '#f0f0f0',
-              },
-              '&.Mui-selected': {
-                backgroundColor: '#d1e3ff',
-                color: '#1a73e8',
-              },
-              fontSize: '0.875rem',
-              paddingY: 0.5, 
-              paddingX: 1, 
-            }}
-          >
-            <ListItemText primary={result[index]} />
-          </ListItemButton>
-        </ListItem>
-      );
+        acc[sector].push(ticker);
+        return acc;
+      }, {});
+
+      setCategories(grouped);
+    } catch (error) {
+      console.error("Error fetching tickers:", error);
+    } finally {
+      setLoading(false);
     }
-  
-    return (
-      <Container>
-        <Paper elevation={3} sx={{ mt: 4, p: 2 }}>
-          <Typography sx={{ mb: 2 }} variant="h6" component="div">
-            Available Tickers
-          </Typography>
-          <Box
-            sx={{
-              '&::-webkit-scrollbar': {
-                width: '8px',
-              },
-              '&::-webkit-scrollbar-thumb': {
-                backgroundColor: '#888',
-                borderRadius: '4px',
-              },
-              '&::-webkit-scrollbar-thumb:hover': {
-                backgroundColor: '#555',
-              },
-              '&::-webkit-scrollbar-track': {
-                backgroundColor: '#f1f1f1',
-              },
-            }}
-          >
-            {loading ? (
-              <Skeleton variant="rectangular" width="100%" height={46} animation="wave" count={10} />
-            ) : (
-              <FixedSizeList height={600} width="100%" itemSize={46} itemCount={result.length} overscanCount={5}>
-                {renderRow}
-              </FixedSizeList>
-            )}
-          </Box>
-        </Paper>
-      </Container>
-    );
   }
-  
-  export default Sidebar;
+
+  const handleCategoryClick = (category) => {
+    // Toggle the expansion state of the category
+    setOpenCategories((prev) => ({
+      ...prev,
+      [category]: !prev[category],
+    }));
+    
+    // Set the selected sector and call the parent callback
+    setSelectedSector(category);
+    setSelectedTicker("");
+    onSectorSelect(category);
+  };
+
+  const handleTickerClick = (ticker, sector) => {
+    setSelectedTicker(ticker);
+    setSelectedSector(sector);
+    onTickerSelect(ticker);
+  };
+
+  return (
+    <Paper 
+      elevation={2} 
+      sx={{ 
+        p: 2,
+        height: "calc(100vh - 100px)",
+        overflowY: "auto"
+      }}
+    >
+      <Typography variant="h6" gutterBottom sx={{ fontWeight: "medium" }}>
+        Sectors
+      </Typography>
+      
+      {loading ? (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Skeleton variant="rectangular" height={30} animation="wave" />
+          <Skeleton variant="rectangular" height={30} animation="wave" />
+          <Skeleton variant="rectangular" height={30} animation="wave" />
+        </Box>
+      ) : (
+        <List component="nav" dense>
+          {Object.keys(categories).map((category) => (
+            <Box key={category} sx={{ mb: 0.5 }}>
+              <ListItemButton 
+                onClick={() => handleCategoryClick(category)}
+                selected={selectedSector === category && !selectedTicker}
+                sx={{ 
+                  borderRadius: 1,
+                  '&.Mui-selected': {
+                    backgroundColor: 'rgba(25, 118, 210, 0.08)',
+                  }
+                }}
+              >
+                <BusinessIcon fontSize="small" sx={{ mr: 1, opacity: 0.7 }} />
+                <ListItemText 
+                  primary={category} 
+                  primaryTypographyProps={{ 
+                    fontWeight: "medium",
+                    noWrap: true
+                  }} 
+                />
+                <Chip 
+                  label={categories[category].length} 
+                  size="small" 
+                  sx={{ mr: 1, height: 20 }}
+                />
+                {openCategories[category] ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              
+              <Collapse in={openCategories[category]} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding dense>
+                  {categories[category].map((ticker) => (
+                    <ListItemButton 
+                      key={ticker} 
+                      sx={{ pl: 4, borderRadius: 1 }}
+                      selected={ticker === selectedTicker}
+                      onClick={() => handleTickerClick(ticker, category)}
+                    >
+                      <ListItemText 
+                        primary={ticker} 
+                        primaryTypographyProps={{ 
+                          fontSize: "0.875rem",
+                          noWrap: true
+                        }}
+                      />
+                    </ListItemButton>
+                  ))}
+                </List>
+              </Collapse>
+            </Box>
+          ))}
+        </List>
+      )}
+    </Paper>
+  );
+}
+
+export default Sidebar;
