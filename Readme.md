@@ -53,12 +53,13 @@ source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
 uvicorn main:app --reload
 
+```
 ### 📦 Frontend Setup
-
+```
 cd frontend
 npm install
 npm start
-
+```
 📌 Limitations
 
 1. Model performance is affected by limited data availability
